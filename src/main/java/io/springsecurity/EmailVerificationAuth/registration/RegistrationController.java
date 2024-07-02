@@ -22,7 +22,6 @@ public class RegistrationController {
         User user = userService.registerUser(registrationRequest);
         //publish registration event
         publisher.publishEvent(new RegistrationCompleteEvent(user, applicationUrl(request)));
-
         return "Success! Please, check your email for to complete your registration";
     }
 
