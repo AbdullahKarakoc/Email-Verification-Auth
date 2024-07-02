@@ -2,6 +2,8 @@ package io.springsecurity.EmailVerificationAuth.user;
 
 import io.springsecurity.EmailVerificationAuth.exception.UserAlredyExistsException;
 import io.springsecurity.EmailVerificationAuth.registration.RegistrationRequest;
+import io.springsecurity.EmailVerificationAuth.registration.token.VerificationToken;
+import io.springsecurity.EmailVerificationAuth.registration.token.VerificationTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,8 +14,10 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserService implements IUserService {
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final VerificationTokenRepository tokenRepository;
 
 
     @Override
@@ -40,5 +44,12 @@ public class UserService implements IUserService {
     @Override
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public void saveUserVerificationToken(User theUser, String token) {
+        var verificationToken = new VerificationToken(token, theUser);
+        tokenRepository.save(verificationToken);
+
     }
 }
