@@ -16,8 +16,8 @@ import java.util.UUID;
 @Component
 @RequiredArgsConstructor
 public class RegistrationCompleteEventListener implements ApplicationListener<RegistrationCompleteEvent> {
-    private final UserService userService;
 
+ private final UserService userService;
     @Override
     public void onApplicationEvent(RegistrationCompleteEvent event) {
         // 1. Get the newly registered user
