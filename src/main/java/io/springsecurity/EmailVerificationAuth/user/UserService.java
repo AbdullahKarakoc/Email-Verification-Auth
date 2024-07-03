@@ -1,6 +1,6 @@
 package io.springsecurity.EmailVerificationAuth.user;
 
-import io.springsecurity.EmailVerificationAuth.exception.UserAlredyExistsException;
+import io.springsecurity.EmailVerificationAuth.exception.UserAlreadyExistsException;
 import io.springsecurity.EmailVerificationAuth.registration.RegistrationRequest;
 import io.springsecurity.EmailVerificationAuth.registration.token.VerificationToken;
 import io.springsecurity.EmailVerificationAuth.registration.token.VerificationTokenRepository;
@@ -30,7 +30,7 @@ public class UserService implements IUserService {
     public User registerUser(RegistrationRequest request) {
         Optional<User> user = this.findByEmail(request.email());
         if (user.isPresent()) {
-            throw new UserAlredyExistsException(
+            throw new UserAlreadyExistsException(
                     "User with email" + request.email() + "already exists");
         }
         var newUser = new User();
